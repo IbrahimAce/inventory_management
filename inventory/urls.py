@@ -1,6 +1,9 @@
 from django.urls import path
-from django.views.generic import TemplateView
+from .views import ProductListView, ProductCreateView, CategoryListView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='inventory/home.html'), name='home'),
+    path('', ProductListView.as_view(), name='home'),  # home now shows product list
+    path('products/', ProductListView.as_view(), name='product_list'),
+    path('products/create/', ProductCreateView.as_view(), name='product_create'),
+    path('categories/', CategoryListView.as_view(), name='category_list'),
 ]

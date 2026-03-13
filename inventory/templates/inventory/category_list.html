@@ -1,0 +1,19 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Categories</h2>
+
+    {% if categories %}
+    <ul class="list-group">
+        {% for category in categories %}
+        <li class="list-group-item">{{ category.name }} — {{ category.description|truncatewords:10 }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No categories yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
