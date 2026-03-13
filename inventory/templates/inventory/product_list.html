@@ -20,7 +20,7 @@
         <tbody>
             {% for product in products %}
             <tr>
-                <td>{{ product.name }}</td>
+                <td><a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a></td>
                 <td>{{ product.quantity_in_stock }} {% if product.needs_reorder %}<span class="badge bg-warning">Low!</span>{% endif %}</td>
                 <td>{{ product.category.name|default:"None" }}</td>
             </tr>

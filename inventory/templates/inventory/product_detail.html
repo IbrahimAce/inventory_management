@@ -1,0 +1,27 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ product.name }}</h2>
+
+    <p><strong>SKU:</strong> {{ product.sku|default:"-" }}</p>
+    <p><strong>Category:</strong> {{ product.category.name|default:"None" }}</p>
+    <p><strong>Quantity in Stock:</strong> {{ product.quantity_in_stock }}
+        {% if product.needs_reorder %}
+            <span class="badge bg-danger">Low Stock!</span>
+        {% endif %}
+    </p>
+    <p><strong>Unit Price:</strong> KES {{ product.unit_price }}</p>
+    <p><strong>Reorder Level:</strong> {{ product.reorder_level }}</p>
+    <p><strong>Added by:</strong> {{ product.created_by.username|default:"Unknown" }}</p>
+    <p><strong>Last updated:</strong> {{ product.updated_at|date:"d M Y H:i" }}</p>
+
+    <div class="mt-4">
+        <a href="{% url 'product_update' product.pk %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'product_delete' product.pk %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'product_list' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+{% endblock %}
