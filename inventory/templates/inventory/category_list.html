@@ -1,19 +1,44 @@
 {% extends 'inventory/base.html' %}
-
 {% block title %}Categories{% endblock %}
-
 {% block content %}
 <div class="container mt-4">
-    <h2>Categories</h2>
+    <h2>Categories 
+         <a href="{% url 'category_create' %}" class="btn btn-primary btn-sm">+ Add New</a>
+    </h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
 
     {% if categories %}
-    <ul class="list-group">
-        {% for category in categories %}
-        <li class="list-group-item">{{ category.name }} — {{ category.description|truncatewords:10 }}</li>
-        {% endfor %}
-    </ul>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr>
+                <td><a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a></td>
+                <td>{{ category.description|truncatewords:15|default:"-" }}</td>
+                <td>
+                    <a href="{% url 'category_update' category.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'category_delete' category.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% else %}
-    <p>No categories yet.</p>
+    <p>No categories yet. Add one!</p>
     {% endif %}
 </div>
 {% endblock %}

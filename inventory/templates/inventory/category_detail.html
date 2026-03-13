@@ -1,0 +1,14 @@
+{% extends 'inventory/base.html' %}
+{% block title %}{{ category.name }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ category.name }}</h2>
+    <p><strong>Description:</strong> {{ category.description|default:"No description provided." }}</p>
+    
+    <div class="mt-4">
+        <a href="{% url 'category_update' category.pk %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'category_delete' category.pk %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'category_list' %}" class="btn btn-secondary">Back to Categories</a>
+    </div>
+</div>
+{% endblock %}
